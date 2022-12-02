@@ -21,6 +21,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('zenmind/', include('zenmind.urls')), # zenmind's urls.py file is plugged into the code
+    path('', include('zenmind.urls')), # zenmind's urls.py file is plugged into the code
     path('admin/', admin.site.urls), 
+    
 ]
