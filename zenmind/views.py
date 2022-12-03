@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
-
+#importing our posts model
+from .models import Post
 
 #helpers are called decorators. pre-written ccodes for some common tasks.
 #imported below to login purpose.
@@ -26,7 +27,8 @@ address of the house in urls.py file.
 
 #Here below, two views functions.
 
-#Two dummy posts created for learning purposes
+#Two dummy posts created for learning purposes, then deleted as shown below
+"""
 posts = [
     {
         'author': 'CoreyMS',
@@ -41,11 +43,12 @@ posts = [
         'date_posted': 'September 28, 2022'
     }
 ]
+"""
 
 def home(request):
     #dummy posts are passed into template
     context = {
-        'posts': posts #here you can use the posts data.
+        'posts': Post.objects.all()  #posts #here you can use the posts data.
     }
     return render (request, 'zenmind/home.html', context)
 
