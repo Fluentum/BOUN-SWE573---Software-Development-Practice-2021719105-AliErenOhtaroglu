@@ -1,0 +1,15 @@
+
+# now it is building the image python-django
+
+docker build --tag python-django .
+
+#look at port 8000, and map port 8000 in container
+docker run --publish 8000:8000 python-django
+
+
+#Step 3 Configurate the docker for mysql database
+docker-compose build
+docker-compose run --rm app django-admin startproject project573 .
+docker-compose up
+docker exec -it django_container bin/bash
+
