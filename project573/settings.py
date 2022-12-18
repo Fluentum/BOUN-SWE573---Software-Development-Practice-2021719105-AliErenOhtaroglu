@@ -10,11 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
+from pathlib import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -87,10 +86,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': '573db',
-        'USER': 'root' ,
+        'USER': 'root',
         'PASSWORD': '1xhz905303875505..1XHZ90',
-        'HOST':'localhost',
-        'PORT':'3306',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
@@ -119,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-#time zone set to eu and amsterdam
+# time zone set to eu and amsterdam
 
 TIME_ZONE = 'Europe/Amsterdam'
 
@@ -133,8 +132,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media') #media root will be in our base directory. uploaded photo location
-MEDIA_URL = '/media/'  #how to access image in browser
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # media root will be in our base directory. uploaded photo location
+MEDIA_URL = '/media/'  # how to access image in browser
 
 STATIC_ROOT = BASE_DIR / 'static'
 
