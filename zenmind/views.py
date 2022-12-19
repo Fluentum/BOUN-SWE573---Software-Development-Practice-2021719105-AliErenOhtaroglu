@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 from django.views.generic import (
     ListView,
     DetailView,
@@ -8,57 +9,37 @@ from django.views.generic import (
     DeleteView
 )
 
-#importing our posts model
+# importing our posts model
 from .models import Post
 
-#helpers are called decorators. pre-written ccodes for some common tasks.
-#imported below to login purpose.
+# helpers are called decorators. pre-written ccodes for some common tasks.
+# imported below to login purpose.
 
-#from django.contrib.auth.decorators import login_required
-
-"""
-Created the first view in app.
-Then this is to be routed in urls.py file. Here we have the house, and we give the
-address of the house in urls.py file. 
-"""
-
-#By adding the imported decorator, each time the below view is called,
-#Caller needs to pass login stage.
-#this line needs to be added before each different view.
-
-#@login_required
-
-#first view created for learning purposes.
-
-#def index(request):
- #   return HttpResponse("Hello, world. Bu benim yaptigim ilk web sayfasi. Ege-Nil-Masalí cok seviyorum. Ayrica esimi ve kendimi de cok seviyorum.")
-
-#Here below, two views functions.
-
-#Two dummy posts created for learning purposes, then deleted as shown below
-"""
-posts = [
-    {
-        'author': 'CoreyMS',
-        'title': 'blog post 1',
-        'content': 'first post content',
-        'date_posted': 'September 28, 1983'
-    },
-    {
-        'author': 'Jane Doe',
-        'title': 'blog post 2',
-        'content': 'second post content',
-        'date_posted': 'September 28, 2022'
-    }
-]
-"""
-
+# from django.contrib.auth.decorators import login_required
 def home(request):
     #dummy posts are passed into template
     context = {
         'posts': Post.objects.all()  #posts #here you can use the posts data.
     }
     return render(request, 'zenmind/home.html', context)
+
+class PostListView(ListView):
+    model = Post
+    template_name = 'zenmind/home.html'
+    context_object_name = 'posts'
+    ordering = ['-date_posted']
+    paginate_by = 5
+
+class UserPostListView(ListView):
+    model = Post
+    template_name = 'zenmind/user_posts.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'posts'
+    paginate_by = 5
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Post.objects.filter(author=user).order_by('-date_posted')
+
 
 
 class PostDetailView(DetailView):
@@ -101,12 +82,8 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
-class PostListView(ListView):
 
-    model = Post
-    template_name = 'zenmind/home.html'
-    context_object_name = 'posts'
-    ordering = ['-date_posted']
+
 
 def about(request):
 
