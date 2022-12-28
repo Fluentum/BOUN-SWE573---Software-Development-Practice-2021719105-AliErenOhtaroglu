@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from django import forms
 from django.views.generic import (
     ListView,
     DetailView,
@@ -10,31 +11,35 @@ from django.views.generic import (
 )
 
 # importing our posts model
-from .models import Post
+from .models import Post, Category
 
-# helpers are called decorators. pre-written ccodes for some common tasks.
+#choices = Category.objects.all().values_list('name', 'name')
+
+#choice_list = []
+
+#for item in choices:
+#    choice_list.append(item)
+
+# choices = [('Read', 'Read'), ('Listen', 'Listen'), ('Visit', 'Visit'), ('Watch', 'Watch')]
+
+# helpers are called decorators. pre-written codes for some common tasks.
 # imported below to login purpose.
 
 # from django.contrib.auth.decorators import login_required
-def home(request):
-    #dummy posts are passed into template
-    context = {
-        'posts': Post.objects.all()  #posts #here you can use the posts data.
-    }
-    return render(request, 'zenmind/home.html', context)
+
 
 class PostListView(ListView):
     model = Post
     template_name = 'zenmind/home.html'
     context_object_name = 'posts'
     ordering = ['-date_posted']
-    paginate_by = 5
+    paginate_by = 4
 
 class UserPostListView(ListView):
     model = Post
     template_name = 'zenmind/user_posts.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
-    paginate_by = 5
+    paginate_by = 4
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
@@ -46,19 +51,27 @@ class PostDetailView(DetailView):
     model = Post
 
 
-class PostCreateView(LoginRequiredMixin, CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView, forms.ModelForm):
     model = Post
-    fields = ['title', 'content', 'url']
+    fields = ['title', 'content', 'url', 'category']
+
+#    widgets = {
+#       'category': forms.Select(choices=choice_list, attrs={'class': 'form-control'}),
+#    }
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
 
-class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, forms.ModelForm):
 
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'url', 'category']
+
+#    widgets = {
+#       'category': forms.Select(choices=choice_list, attrs={'class' : 'form-control'}),
+#3    }
 
     def form_valid(self, form):
         form.instance.author = self.request.user
