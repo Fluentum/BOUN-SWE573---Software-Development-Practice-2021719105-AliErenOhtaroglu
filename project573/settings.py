@@ -82,15 +82,16 @@ WSGI_APPLICATION = 'project573.wsgi.application'
 # database defaults changed and adapted for my sql
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': '573db',
-        'USER': 'root',
-        'PASSWORD': '1xhz905303875505..1XHZ90',
-        'HOST': 'localhost',
-        'PORT': '3307',
+    'default':  {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "db",  # set in docker-compose.yml
+        "PORT": 5432,  # default postgres port
     }
 }
+
 
 
 # Password validation

@@ -1,13 +1,20 @@
-# installed a lightweight operating system
-From python:3.8
-# any python output for example an error send asap to docker terminal
-# normally information is buffered and send to when it reaches a point.
-ENV PYTHONUNBUFFERED=1
-# created a directory called app
-WORKDIR /django
-# copied requirements.txt file into this directory and name it requirements.txt
-COPY requirements.txt /django/requirements.txt
-# install requirements.txt file
+#Dockerfile
+
+# Pull base image
+FROM python:3.9.16-slim-bullseye
+
+# Set environment variables
+ENV PIP_DISABLE_PIP_VERSION_CHECK 1
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set work directory
+WORKDIR /code
+
+# Install dependencies
+RUN apt-get update && apt-get upgrade -y && apt-get install gcc -y
+COPY ./requirements.txt .
 RUN pip install -r requirements.txt
-# copy the folder that we are in into the app folder. copy everything.
-COPY . /django
+
+# Copy project
+COPY . .

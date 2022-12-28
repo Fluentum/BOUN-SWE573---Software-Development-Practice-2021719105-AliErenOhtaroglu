@@ -1,27 +1,25 @@
-#here we are building services that will run in docker container
-#first item that shows the version of the file
-version: "3.8"
-#this command starts building the services.
+#docker-compose.yml
+version: "3.9"
+
 services:
-  db:
-    image: mysql:8
-    ports:
-      - "3307:3306"
-    environment:
-      MYSQL_DATABASE: '573db'
-      MYSQL_ROOT_PASSWORD: '1xhz905303875505..1XHZ90'
-      MYSQL_HOST: ''
-    volumes:
-      - /tmp/app/mysqld:/var/run/mysqld
-      - ./db:/var/lib/mysql
-  app:
-#Docker file exists. We are going to use this file.
+  web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "python /code/manage.py makemigrations &&
+             python /code/manage.py migrate &&
+             python /code/manage.py runserver 0.0.0.0:8000"             
     volumes:
-      - .:/django
-      - /tmp/app/mysqld:/run/mysqld
+      - .:/code
     ports:
-      - "8000:8000"
+      - 80:8000
     depends_on:
       - db
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+
+volumes:
+  postgres_data:

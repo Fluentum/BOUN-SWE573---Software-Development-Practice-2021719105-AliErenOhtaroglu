@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import (
+from . import views
+from . views import (
       PostListView,
       PostDetailView,
       PostCreateView,
@@ -7,7 +8,7 @@ from .views import (
       PostDeleteView,
       UserPostListView
 )
-from . import views
+
 
 urlpatterns = [
       path('', PostListView.as_view(), name='zenmind-home'),
@@ -17,8 +18,7 @@ urlpatterns = [
       path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
       path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
       path('about/', views.about, name='zenmind-about'),
-      
+]
+
 # path to be used in login.
 # path('accounts/login/', views.LoginView.as_view(), name='login'),
-
-]
