@@ -25,20 +25,10 @@ env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, 'project573/.env')) #<-- where ever your .env lies inside project directory
 SECRET_KEY = os.environ.get('SECRET_KEY', env('SECRET_KEY'))
 
-#SECRET_KEY = 'django-insecure-x=$t%rbw9ldcd!hupwbtebywn11!mwdp#hk51@a@vjopqm1mbq'
-
-
-
-
-
-
-
 # Quick-start development settings - unsuitable for production
+
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG")
