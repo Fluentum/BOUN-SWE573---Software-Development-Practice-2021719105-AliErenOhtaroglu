@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+
 import os
 from pathlib import Path
 
@@ -18,15 +19,29 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import environ
+
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, 'project573/.env')) #<-- where ever your .env lies inside project directory
+SECRET_KEY = os.environ.get('SECRET_KEY', env('SECRET_KEY'))
+
+#SECRET_KEY = 'django-insecure-x=$t%rbw9ldcd!hupwbtebywn11!mwdp#hk51@a@vjopqm1mbq'
+
+
+
+
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-x=$t%rbw9ldcd!hupwbtebywn11!mwdp#hk51@a@vjopqm1mbq'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG")
 
 ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'localhost', '*']
 
@@ -79,14 +94,15 @@ WSGI_APPLICATION = 'project573.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# database defaults changed and adapted for my sql
+# database defaults changed and adapted for postgresql
 
 DATABASES = {
+
     'default':  {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
+        "NAME": os.environ.get("DATABASE_NAME"),
+        "USER": os.environ.get("DATABASE_USER"),
+        "PASSWORD": os.environ.get("DATABASE_PASSWORD"),
         "HOST": "db",  # set in docker-compose.yml
         "PORT": 5432,  # default postgres port
     }

@@ -12,9 +12,10 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /code
 
 # Install dependencies
-RUN apt-get update && apt-get upgrade -y && apt-get install gcc -y
+
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
+RUN apt-get update && apt-get upgrade -y && apt-get install gcc -y
 
 # Copy project
 COPY . .
