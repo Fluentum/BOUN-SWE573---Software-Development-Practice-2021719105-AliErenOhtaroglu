@@ -6,9 +6,9 @@
 
 Project Link:	http://ec2-54-208-213-7.compute-1.amazonaws.com/
 
-Final zip file:	https://github.com/Fluentum/BOUN-SWE573---Software-Development-Practice-2021719105-AliErenOhtaroglu/wiki/Deliverables
+Final Report:	https://github.com/Fluentum/BOUN-SWE573---Software-Development-Practice-2021719105-AliErenOhtaroglu/wiki/Deliverables
 
-Final tag:	https://github.com/Fluentum/BOUN-SWE573---Software-Development-Practice-2021719105-AliErenOhtaroglu/releases/tag/v0.9
+Final Tag:	https://github.com/Fluentum/BOUN-SWE573---Software-Development-Practice-2021719105-AliErenOhtaroglu/releases/tag/v0.9
 
 
 # About
