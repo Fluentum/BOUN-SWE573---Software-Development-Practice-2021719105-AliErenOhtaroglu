@@ -4,6 +4,13 @@
 
 ##        2021719105-Ali Eren Ohtaroglu
 
+Project Link:	http://ec2-54-208-213-7.compute-1.amazonaws.com/
+![image](https://user-images.githubusercontent.com/115422651/210386617-1b01b4ab-7b89-4fd5-8956-b3b77896768d.png)
+
+Final zip file:	https://github.com/Fluentum/BOUN-SWE573---Software-Development-Practice-2021719105-AliErenOhtaroglu/wiki/Deliverables
+![image](https://user-images.githubusercontent.com/115422651/210386639-54a444b9-a2c7-4d89-9ca8-70990126bfaf.png)
+
+
 
 # About
 
